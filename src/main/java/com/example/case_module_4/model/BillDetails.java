@@ -1,7 +1,8 @@
 package com.example.case_module_4.model;
 
-import jakarta.persistence.*;
 import lombok.Data;
+
+import javax.persistence.*;
 
 @Entity
 @Data

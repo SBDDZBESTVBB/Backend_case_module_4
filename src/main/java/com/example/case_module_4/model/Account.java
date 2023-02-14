@@ -1,8 +1,7 @@
 package com.example.case_module_4.model;
-
-import jakarta.persistence.*;
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -14,9 +13,10 @@ public class Account {
     private int idAccount;
     private String username;
     private String password;
-    private String fullname;
+    private String fullName;
     private String address;
     private String phone;
+    private String img;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
