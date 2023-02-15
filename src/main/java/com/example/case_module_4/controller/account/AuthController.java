@@ -44,8 +44,8 @@ public class AuthController {
         return new ResponseEntity<>(account,HttpStatus.OK);
     }
 
-    @GetMapping("/checkUsername")
-    public ResponseEntity<Account> check(@RequestParam String username) {
+    @GetMapping("/checkUsername/{username}")
+    public ResponseEntity<Account> check(@PathVariable String username) {
         if (accountService.isAccountDuplicated(username)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
