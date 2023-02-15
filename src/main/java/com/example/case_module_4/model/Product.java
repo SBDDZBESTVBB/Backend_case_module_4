@@ -17,4 +17,5 @@ private int quantity;
 private  String img;
 @ManyToOne
     private Category category;
+
 }
