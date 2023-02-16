@@ -34,5 +34,8 @@ public class ProductService {
     public Page<Product> searchByName(String stringSearch, Pageable pageable) {
        return iProductRepo.findAllByNameProductContaining(stringSearch, pageable);
     }
+    public void saveProduct(Product product){
+       iProductRepo.save(product);
+    }
 
 }

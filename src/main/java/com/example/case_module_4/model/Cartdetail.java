@@ -1,18 +1,20 @@
 package com.example.case_module_4.model;
+
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Data
-public class Bill {
+
+public class Cartdetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idBill;
-    private LocalDate date;
+    private int idCartdetail;
     @ManyToOne
-    private Account account;
+    private Product product;
+    @ManyToOne
+    private  Account account;
+    private int amount;
 
 }
