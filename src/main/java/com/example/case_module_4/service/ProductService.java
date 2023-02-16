@@ -35,4 +35,8 @@ public class ProductService {
        return iProductRepo.findAllByNameProductContaining(stringSearch, pageable);
     }
 
+    public void saveProduct(Product product){
+        iProductRepo.save(product);
+    }
+
 }
