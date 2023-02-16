@@ -1,6 +1,8 @@
 package com.example.case_module_4.controller.product;
 
+import com.example.case_module_4.model.Comment;
 import com.example.case_module_4.model.Product;
+import com.example.case_module_4.service.CommentService;
 import com.example.case_module_4.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @CrossOrigin("*")
@@ -16,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
     @Autowired
     ProductService productService;
+
+    @Autowired
+    CommentService commentService;
 
     @GetMapping("/gender/{gender}")
     public ResponseEntity<Page<Product>> findAllProductByGender(@PathVariable String gender, @RequestParam(defaultValue = "0") int page) {
@@ -36,5 +43,10 @@ public class ProductController {
     @GetMapping("/search/{stringSearch}")
     public ResponseEntity<Page<Product>> searchByName(@PathVariable String stringSearch, @RequestParam(defaultValue = "0") int page) {
         return new ResponseEntity<>(productService.searchByName(stringSearch, PageRequest.of(page,4)), HttpStatus.OK);
+    }
+
+    @GetMapping("/comment/{id}")
+    public ResponseEntity<List<Comment>> getAllCommentByIdProduct(@PathVariable int id) {
+        return new ResponseEntity<>(commentService.getAllCommentByIdProduct(id), HttpStatus.OK);
     }
 }

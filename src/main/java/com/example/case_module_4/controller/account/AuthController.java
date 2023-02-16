@@ -2,6 +2,7 @@ package com.example.case_module_4.controller.account;
 
 import com.example.case_module_4.dto.AccountToken;
 import com.example.case_module_4.model.Account;
+import com.example.case_module_4.model.Product;
 import com.example.case_module_4.service.AccountService;
 import com.example.case_module_4.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 
 @RestController
 @CrossOrigin("*")
@@ -44,6 +49,18 @@ public class AuthController {
         return new ResponseEntity<>(account,HttpStatus.OK);
     }
 
+
+    @PostMapping("/user/upImg")
+    public String upImg(@RequestParam MultipartFile fileImg) {
+        String nameImg = fileImg.getOriginalFilename();
+        try {
+            FileCopyUtils.copy(fileImg.getBytes(), new File("E:\\CaseModule4_Final\\FE_CaseModule4_Final\\images/" + nameImg));
+            return "/images/" + nameImg;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     @GetMapping("/checkUsername/{username}")
     public ResponseEntity<Account> check(@PathVariable String username) {
         if (accountService.isAccountDuplicated(username)) {
@@ -55,5 +72,20 @@ public class AuthController {
     @GetMapping("/findAccountByUsername")
     public ResponseEntity<Account> findAccountByUsername(@RequestParam String username) {
         return new ResponseEntity<>(accountService.findAccountByUsername(username), HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{username}")
+    public ResponseEntity<Account> findById(@PathVariable String username) {
+        return new ResponseEntity<>(accountService.findAccountByUsername(username), HttpStatus.OK);
+    }
+
+    @GetMapping("/edit/{username}")
+    public ResponseEntity<Account> showEditAccount(@PathVariable String username) {
+        return new ResponseEntity<>(accountService.findAccountByUsername(username), HttpStatus.OK);
+    }
+
+    @PutMapping("/update")
+    public void update(@RequestBody Account account) {
+        accountService.save(account);
     }
 }

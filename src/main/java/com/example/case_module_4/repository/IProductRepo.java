@@ -5,7 +5,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface IProductRepo extends PagingAndSortingRepository<Product, Integer > {
@@ -15,7 +18,6 @@ public interface IProductRepo extends PagingAndSortingRepository<Product, Intege
     Page<Product> findProductByCategory_Gender(String gender, Pageable pageable);
     Page<Product> findProductByCategory_NameCategory(String nameCategory, Pageable pageable);
 
-    Page<Product> findProductByNameProductContaining(String stringSearch, Pageable pageable);
-
     Page<Product> findAllByNameProductContaining(String stringSearch, Pageable pageable);
+
 }
